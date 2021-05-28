@@ -19,4 +19,7 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Infraestructure\Infraestructure.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="ViewModel\ErrorMessage.cs" />
+  </ItemGroup>
 </Project>

@@ -51,28 +51,12 @@ namespace APIContatoNasser.Controllers
         public ActionResult ChangeState(int id, [FromQuery(Name = "isActive")] bool isActive)
         {
             var result = _contatoService.ActivateOrDeactivate(id, isActive);
-            if (result.Item1 != null)
+            if (result.Item1 != null && String.IsNullOrEmpty(result.Item2))
                 return Ok("Estado do contato foi alterado com sucesso.");
 
             return NotFound(result.Item2);
         }
-        
-        /// <summary>
-        /// Deleta um contato existente.
-        /// </summary>
-        /// <param name="id">Id do contato.</param>
-        /// <returns></returns>
-        [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
-        {
-            var model = _contatoService.Delete(id);
 
-            if (model.Item1 != null)
-                return Ok("Registro excluído com sucesso!");
-            
-            return BadRequest("Registro não encontrado!" + model.Item2);
-        }
-        
         /// <summary>
         /// Cria um novo contato.
         /// </summary>
@@ -99,10 +83,26 @@ namespace APIContatoNasser.Controllers
         {
             bodyContato.Id = id;
             var model = _contatoService.Update(bodyContato);
-            if (model.Item1 != null)
+            if (model.Item1 != null && String.IsNullOrEmpty(model.Item2))
                 return Ok(model.Item1);
             
             return BadRequest("Registro não encontrado!");
+        }
+        
+        /// <summary>
+        /// Deleta um contato existente.
+        /// </summary>
+        /// <param name="id">Id do contato.</param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
+        {
+            var model = _contatoService.Delete(id);
+
+            if (model.Item1 != null && String.IsNullOrEmpty(model.Item2))
+                return Ok("Registro excluído com sucesso!");
+            
+            return BadRequest("Registro não encontrado!" + model.Item2);
         }
     }
 }
