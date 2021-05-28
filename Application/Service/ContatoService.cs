@@ -34,6 +34,7 @@ namespace Application.Service
             if (contato != null)
             {
                 contato.IsAtivo = activeOrDeactive;
+                contato.UpdatedAt = DateTime.Now;
                 _conexaoBanco.SaveChanges();
                 contatoRetorno.Contato = contato;
             }
@@ -84,14 +85,13 @@ namespace Application.Service
                         Sexo = obj.Sexo,
                         DataNascimento = obj.DataNascimento,
                         Idade = obj.Idade,
-                        CreatedAt = obj.CreatedAt,
-                        UpdatedAt = obj.UpdatedAt,
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
                         IsAtivo = obj.IsAtivo,
                     };
                     _conexaoBanco.Add(contatoNovo);
                     _conexaoBanco.SaveChanges();
-                    obj.Id = contatoNovo.Id;
-                    contatoRetorno.Contato = obj;
+                    contatoRetorno.Contato = contatoNovo;
                 }
                 catch (Exception ex)
                 {
@@ -117,6 +117,7 @@ namespace Application.Service
                     retorno.Nome = obj.Nome;
                     retorno.Sexo = obj.Sexo;
                     retorno.Idade = obj.Idade;
+                    retorno.UpdatedAt = DateTime.Now;
                     retorno.IsAtivo = obj.IsAtivo;
                     retorno.DataNascimento = obj.DataNascimento;
 
