@@ -86,7 +86,7 @@ namespace APIContatoNasser.Controllers
             if (model.Item1 != null && String.IsNullOrEmpty(model.Item2))
                 return Ok(model.Item1);
             
-            return BadRequest("Registro não encontrado!");
+            return BadRequest(model.Item2);
         }
         
         /// <summary>
